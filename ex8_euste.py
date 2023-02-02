@@ -19,11 +19,15 @@ np.random.seed(42)
 
 class Game_of_Life(object):
     
-    def __init__(self,N):
-        self.N = N
-        self.lattice = np.random.randint(0,2,size=(N,N))
-        self.counter = np.zeros((N,N))
-        # each cell either 0 (dead) or 1 (alive)
+    def __init__(self,N=0,lattice=None):
+        if N==0:
+            self.lattice = lattice
+        else:
+            self.N = N
+            self.lattice = np.random.randint(0,2,size=(N,N))
+            
+        self.counter = np.zeros(self.lattice.shape)
+        
         
     def count_neighbor(self):
         '''
@@ -48,7 +52,7 @@ class Game_of_Life(object):
         
     def evolve(self,t_max=50):
         for t in range(t_max):
-            self.counter = np.zeros((self.N,self.N))
+            self.counter = np.zeros(self.lattice.shape)
             
             self.count_neighbor()
             
@@ -67,10 +71,9 @@ class Game_of_Life(object):
             
             
     
-    
+X = np.genfromtxt('flowers.txt')
     
 
-game = Game_of_Life(50)
-X = game.lattice
+game = Game_of_Life(lattice=X)
 game.evolve()
 
