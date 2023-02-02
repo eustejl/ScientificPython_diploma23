@@ -57,7 +57,7 @@ class Game_of_Life(object):
             self.count_neighbor()
             
             #die if alive and neighbor not 2 or 3
-            self.lattice[np.where((self.lattice==1) & (~(self.counter==2) | (self.counter==3)))] = 0
+            self.lattice[np.where((self.lattice==1) & ((self.counter!=2) | (self.counter!=3)))] = 0
             
             #add child if neighbor 3
             self.lattice[np.where((self.lattice==0) & (self.counter==3))] = 1
@@ -71,9 +71,9 @@ class Game_of_Life(object):
             
             
     
-X = np.genfromtxt('flowers.txt')
+X = np.genfromtxt('gun.txt')
     
 
 game = Game_of_Life(lattice=X)
-game.evolve()
+game.evolve(t_max=50)
 
